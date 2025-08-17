@@ -24,7 +24,7 @@ pub fn create_app(
                     .route("/movies", web::get().to(list_movies))
                     .route("/movies/{id}", web::get().to(get_movie))
             )
-            .service(Files::new("/", "static").index_file("index.html"));
+            .service(Files::new("/", "./frontend/dist").index_file("index.html"));
     }
 }
 
@@ -46,12 +46,25 @@ async fn main(
         println!("Deployment directory: {:?}", cwd);
     }
 
-    if !Path::new("static").exists() {
-        println!("Warning: static directory not found in deployment");
-    } else if !Path::new("static/index.html").exists() {
-        println!("Warning: static/index.html not found");
-    } else {
-        println!("Static files found successfully");
+    // Check both relative paths that might be used
+    let static_paths = ["./frontend/dist", "frontend/dist"];
+    let mut found = false;
+    
+    for path in &static_paths {
+        if Path::new(path).exists() {
+            println!("Found static directory at: {}", path);
+            if Path::new(&format!("{}/index.html", path)).exists() {
+                println!("✓ index.html found at: {}/index.html", path);
+                found = true;
+            }
+            if Path::new(&format!("{}/assets", path)).exists() {
+                println!("✓ assets directory found at: {}/assets", path);
+            }
+        }
+    }
+    
+    if !found {
+        println!("⚠️ Warning: Static files not found. Ensure 'npm run build' was run in frontend/");
     }
 
     Ok(create_app(pool).into())

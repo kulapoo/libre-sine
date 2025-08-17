@@ -2,6 +2,7 @@ use actix_web::{web, App, HttpServer, middleware};
 use actix_files::Files;
 use sqlx::{Executor, PgPool};
 use std::env;
+use std::path::Path;
 use std::sync::Arc;
 
 use libresine::handlers::{get_movie, list_movies};
@@ -26,7 +27,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .await
         .expect("Failed to run migrations");
 
-    println!("Server running at http://127.0.0.1:8080");
+    if !Path::new("frontend/dist").exists() {
+        println!("⚠️  frontend/dist not found!");
+        println!("   For development: Run 'npm run dev' in frontend/ folder (recommended)");
+        println!("   For production mode: Run 'npm run build' in frontend/ folder first");
+        println!("");
+    }
+
+    println!("🚀 Backend API running at http://127.0.0.1:8080");
 
     HttpServer::new(move || {
         App::new()
@@ -38,7 +46,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     .route("/movies", web::get().to(list_movies))
                     .route("/movies/{id}", web::get().to(get_movie))
             )
-            .service(Files::new("/", "static").index_file("index.html"))
+            .service(Files::new("/", "frontend/dist").index_file("index.html"))
     })
     .bind(("127.0.0.1", 8080))?
     .run()

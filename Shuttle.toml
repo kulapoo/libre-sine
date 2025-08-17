@@ -1,5 +1,9 @@
+[deploy]
+include = [
+    "frontend/dist/**/*",
+]
+
 [build]
 assets = [
-  "static/**/*"
+    "frontend/dist/**/*",
 ]
-name = "libresine"

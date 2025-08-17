@@ -97,8 +97,9 @@ cargo run --bin local
 
 ```bash
 cd frontend
+npm install
 npm run build
-# This will build the frontend to the ../static directory
+# This will build the frontend to the frontend/dist directory
 ```
 
 ### Deploy to Shuttle.rs
@@ -160,7 +161,7 @@ libre-sine/
        pages/         # Page components
        services/      # API services
     package.json       # Frontend dependencies
- static/                # Built frontend (generated)
+ frontend/dist/         # Built frontend (generated)
  migrations/            # Database migrations
     001_movie_collections.sql  # Movie collections schema
  docs/                  # Documentation and schemas
