@@ -1,9 +1,9 @@
 [deploy]
 include = [
-    "frontend/dist/**/*",
+    "frontend/dist/*",
 ]
 
 [build]
 assets = [
-    "frontend/dist/**/*",
+    "frontend/dist/*",
 ]
