@@ -1,0 +1,43 @@
+[package]
+name = "libresine"
+version = "0.1.0"
+edition = "2021"
+authors = ["kulaskulapoo@gmail.com"]
+description = "Personal movie streaming website for your private collection - Built with Rust and React"
+license = "MIT"
+repository = "git@github.com:kulapoo/libre-sine.git"
+homepage = "https://github.com/yourusername/libresine"
+readme = "README.md"
+keywords = ["movie-streaming", "personal-media", "actix-web", "shuttle", "self-hosted"]
+categories = ["web-programming", "web-programming::http-server", "multimedia"]
+
+[lib]
+name = "libresine"
+path = "src/lib.rs"
+
+[[bin]]
+name = "libresine"
+path = "src/main.rs"
+
+[[bin]]
+name = "local"
+path = "src/bin/local.rs"
+
+[dependencies]
+actix-web = "4.9"
+actix-files = "0.6"
+actix-cors = "0.7"
+shuttle-actix-web = "0.56"
+shuttle-runtime = "0.56"
+shuttle-shared-db = { version = "0.56", features = ["postgres"] }
+sqlx = { version = "0.8", features = ["runtime-tokio-native-tls", "postgres", "chrono"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1", features = ["full"] }
+chrono = { version = "0.4", features = ["serde"] }
+validator = { version = "0.20.0", features = ["derive"] }
+anyhow = "1.0"
+dotenv = "0.15"
+reqwest = { version = "0.12.23", features = ["json"] }
+lazy_static = "1.4"
+tracing = "0.1"

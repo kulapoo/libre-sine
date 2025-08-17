@@ -1,0 +1,9 @@
+[
+    {
+        "id": 1,
+        "name": "list-of-movies.json - file name as default name",
+        "url": "https://google-drive/list-of-movies.json",
+        "created_at": "2023-01-01",
+        "default": true
+    }
+]
